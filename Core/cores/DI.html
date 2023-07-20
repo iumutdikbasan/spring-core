@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dependency Injection (DI)</title>
+</head>
+<body>
+<h1 style="color:rgb(99, 177, 117);">Dependency Injection (DI)</h1>
+<p style="font-size:25px;">Sınıflar birbirlerini kullanarak yapılacak olan işlemleri gerçekleştirirler. Bu sınıflar arası bağımlılıkların oluşmasını sağlar.</p>
+<br>
+<h3>Örnek</h3>
+<pre>public class UserController {
+    private UserServiceImpl userServiceImpl = new UserServiceImpl();
+}</pre>
+<br>
+<p style="font-size:20px;">Yukarıdaki örnekte UserController sınıfı belirli işlemleri gerçekleştirebilmek için UserServiceImpl sınıfına bağımlıdır. Fakat UserController sınıfı içerisinde new operatörü ile nesne oluşturulması, <br> UserController sınıfını direkt olarak UserServiceImpl sınıfına bağımlı kılmaktadır. Bu Dependency Inversion Principle’a aykırıdır. Çünkü bağımlılığın yönünün soyut sınıflara doğru olması gerekirken burada somut bir sınıfa doğru olmuştur.
+    <br> Herhangi bir şekilde UserServiceImpl sınıfı değişikliğe uğrarsa, UserController bu değişiklikten direkt olarak etkilenecektir.</p>
+<br>
+<pre>
+    public class UserController {
+    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+}
+</pre>
+<br>
+<p style="font-size:20px;">Yukarıdaki örnekte ise UserController sınıfı bu sefer somut bir sınıfa bağımlı olmamakla birlikte new operatörünü kullanarak bağımlılığını kendisi oluşturmuyor. <br> Peki bu bağımlılık nasıl oluşuyor? UserController sınıfı oluşturulduğu anda constructor metoduna uygulama çatısı tarafından herhangi bir UserService implementasyonu gönderilerek bu bağımlılık enjekte ediliyor. <br> Bu işleme Dependency Injection yani bağımlılıların enjekte edilmesi denir.</p>
+</body>
+</html>
